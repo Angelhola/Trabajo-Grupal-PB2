@@ -6,7 +6,7 @@ public class Pintura extends Producto {
 	private Double litros;
 	
 	public Pintura(String descripcion, String marca, Double precio, String color, Double litros) {
-		super(descripcion, marca, precio);
+		super(descripcion, marca, precio, "P");
 		this.color = color;
 		this.litros = litros;
 	}
