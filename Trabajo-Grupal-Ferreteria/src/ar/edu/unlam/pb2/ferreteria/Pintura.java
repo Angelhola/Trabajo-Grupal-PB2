@@ -27,6 +27,10 @@ public class Pintura extends Producto {
 		this.litros = litros;
 	}
 	
+	public void resetearContador() {
+		setContadorId(1);
+	}
+	
 	
 	
 
