@@ -18,7 +18,7 @@ public class test {
 		Ferreteria ferreteria = new Ferreteria();
 		Pintura pintura = new Pintura("pintura", "lokepinte", 200.0, "rojo", 10.0);
 		ferreteria.registrarProducto(pintura);
-		
+
 		assertEquals(ferreteria.getProducto().size(), 1);
 	}
 
