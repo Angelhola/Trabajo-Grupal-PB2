@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import ar.edu.unlam.pb2.ferreteria.Ferreteria;
 import ar.edu.unlam.pb2.ferreteria.Pintura;
 
 public class test {

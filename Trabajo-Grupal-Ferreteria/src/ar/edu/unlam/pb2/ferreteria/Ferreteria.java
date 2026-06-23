@@ -1,8 +1,6 @@
-package ar.edu.unlam.pb2.test;
+package ar.edu.unlam.pb2.ferreteria;
 
 import java.util.TreeSet;
-
-import ar.edu.unlam.pb2.ferreteria.Producto;
 
 public class Ferreteria{
 
