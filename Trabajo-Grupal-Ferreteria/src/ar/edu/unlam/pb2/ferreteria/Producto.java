@@ -1,6 +1,8 @@
 package ar.edu.unlam.pb2.ferreteria;
 
-public class Producto implements Comparable<Producto>{
+import java.util.Comparator;
+
+public class Producto implements Comparable<Producto>, Comparator{
 	
 	private static Integer contadorId = 1;
 	private String id;
@@ -69,6 +71,14 @@ public class Producto implements Comparable<Producto>{
 	@Override
 	public int compareTo(Producto o) {
 		return this.id.compareTo(o.getId());
+	}
+
+	@Override
+	public int compare(Object o1, Object o2) {       //compara descripciones y las ordena
+		Producto p1 = (Producto) o1;
+		Producto p2 = (Producto) o2;
+		p1.getDescripcion().compareTo(p2.getDescripcion());
+		return 0;
 	}
 	
 	
