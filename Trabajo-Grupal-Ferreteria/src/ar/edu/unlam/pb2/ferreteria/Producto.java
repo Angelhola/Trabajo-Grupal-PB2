@@ -1,19 +1,23 @@
 package ar.edu.unlam.pb2.ferreteria;
 
-public class Producto implements Comparable<Producto>{
+import java.util.Comparator;
+
+public class Producto implements Comparable<Producto>, Comparator{
 	
 	private static Integer contadorId = 1;
-	private Integer id;
+	private String id;
 	private String descripcion;
 	private String marca;
 	private Double precio;
 	private String prefijo;
 	
-	public Producto(String descripcion, String marca, Double precio) {
-		this.id = contadorId++;
+	public Producto(String descripcion, String marca, Double precio, String prefijo) {
+		            //P          //1
+		this.id = prefijo + (contadorId++);
 		this.descripcion = descripcion;
 		this.marca = marca;
 		this.precio = precio;
+		this.prefijo = prefijo;
 	}
 
 	public static Integer getContadorId() {
@@ -24,11 +28,11 @@ public class Producto implements Comparable<Producto>{
 		Producto.contadorId = contadorId;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -56,9 +60,25 @@ public class Producto implements Comparable<Producto>{
 		this.precio = precio;
 	}
 
+	public String getPrefijo() {
+		return prefijo;
+	}
+
+	public void setPrefijo(String prefijo) {
+		this.prefijo = prefijo;
+	}
+
 	@Override
 	public int compareTo(Producto o) {
-		return this.id - o.getId();
+		return this.id.compareTo(o.getId());
+	}
+
+	@Override
+	public int compare(Object o1, Object o2) {       //compara descripciones y las ordena
+		Producto p1 = (Producto) o1;
+		Producto p2 = (Producto) o2;
+		p1.getDescripcion().compareTo(p2.getDescripcion());
+		return 0;
 	}
 	
 	
