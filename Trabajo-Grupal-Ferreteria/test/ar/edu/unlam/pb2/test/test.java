@@ -9,31 +9,47 @@ import ar.edu.unlam.pb2.exceptions.NoExisteProductoConElIdAEliminarException;
 import ar.edu.unlam.pb2.ferreteria.Ferreteria;
 import ar.edu.unlam.pb2.ferreteria.Herramienta;
 import ar.edu.unlam.pb2.ferreteria.Maquina;
+import ar.edu.unlam.pb2.ferreteria.NoSePuedeAsignarPrecioNegativoException;
+import ar.edu.unlam.pb2.ferreteria.NoSePuedeRegistrarCodigosDuplicadosException;
 import ar.edu.unlam.pb2.ferreteria.Pintura;
 
 public class test {
-	//1- Dado que existe una ferretería, cuando se agrega un producto, entonces se registra correctamente.
 	@Test
-	public void DadoQueExisteUnaFerreteriaYSeAgregaUnProducto() {
+	public void DadoQueExisteUnaFerreteriaYSeAgregaUnProductoSeRegistraCorrectamente() throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
 		Ferreteria ferreteria = new Ferreteria();
 		Pintura pintura = new Pintura("pintura", "lokepinte", 200.0, "rojo", 10.0);
 		ferreteria.registrarProducto(pintura);
 
-		assertEquals(ferreteria.getProducto().size(), 1);
+		assertEquals(ferreteria.getProductos().size(), 1);
 	}
 
-	//2- Dado que existe una ferretería, cuando se agrega un producto con código repetido, entonces se lanza una excepción
-	//3- Dado que existe una ferretería, cuando se busca un producto existente, entonces se obtiene el producto.
-	//4- Dado que existe una ferretería, cuando se busca un producto inexistente, entonces se lanza una excepción.
+	@Test (expected= NoSePuedeRegistrarCodigosDuplicadosException.class)
+	public void dadoQueExisteUnaFerreteriaCuandoSeAgregaUnProductoConCodigoRepetidoEntoncesSeLanzaUnaExcepcion() throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
+Ferreteria ferreteria= new Ferreteria();
+Herramienta herramienta=new Herramienta("martillo","bremen",12.00,"domestico","hierro");
+String id=herramienta.getId();
+ferreteria.registrarProducto(herramienta);
+Herramienta herramienta2= new Herramienta("martillo","stanley",12.00,"domestico","hierro");
+herramienta2.setId(id);
+ferreteria.registrarProducto(herramienta2);
+	}
+	@Test
+	public void dadoQueExisteUnaFerreteriaCuandoSeBuscaUnProductoExistenteEntoncesSeObtieneElProducto() throws NoSePuedeRegistrarCodigosDuplicadosException, NoExisteProductoConElIdABuscarException, NoSePuedeAsignarPrecioNegativoException {
+	Ferreteria ferreteria= new Ferreteria();
+	Herramienta cajaDeTubos=new Herramienta("caja de tubos","stanley",18.00,"profesional","bronce");
+	ferreteria.registrarProducto(cajaDeTubos);
+	ferreteria.buscarProductoPorIdEnLaLista(cajaDeTubos.getId());
+
+	}
+
 	@Test (expected = NoExisteProductoConElIdABuscarException.class)
-	public void DadoQueExisteUnaFerreteriaYBuscaUnProductoInexistente() throws NoExisteProductoConElIdABuscarException {
+	public void DadoQueExisteUnaFerreteriaYBuscaUnProductoInexistenteEntoncesSeLanzaExcepcion() throws NoExisteProductoConElIdABuscarException, NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
 		Ferreteria ferreteria = new Ferreteria();
 		Pintura pintura = new Pintura("deBalde", "lokepinte", 200.0, "azul", 10.0);
 		pintura.resetearContador();
 		ferreteria.registrarProducto(pintura);
 		ferreteria.buscarProductoPorIdEnLaLista("P2");
 	}
-	//5- Dado que existe una ferretería, cuando se elimina un producto existente, entonces el producto se elimina correctamente.
 	@Test 
 	public void DadoQueExisteUnaFerreteriaYSeEliminaUnProductoDeLaLista() throws NoExisteProductoConElIdABuscarException, NoExisteProductoConElIdAEliminarException {
 //		Ferreteria ferreteria = new Ferreteria();
@@ -45,13 +61,20 @@ public class test {
 //		ferreteria.borrarProductoPorIdEnLaLista("H3");  //borra el producto
 //		
 	}
-	//6- Dado que existe una ferretería, cuando se intenta eliminar un producto inexistente, entonces se lanza una excepción.
-	//7- Dado que existe una ferretería, cuando se registran productos, entonces no se permiten duplicados.
-	//8- Dado que existe una ferretería, cuando se obtienen los productos, entonces se devuelven ordenados por DESCRIPCION.
 	@Test
-	public void DadoQueExisteUnaFerreteriaSeDevuelveUnaListaOrdenadaPorDescripcion() {
+	public void dadoQueExisteUnaFerreteriaCuandoSeRegistranProductosEntoncesNoSePermitenDuplicados() {
+	// redundante este test :v
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaCuandoSeObtienenLosProductosEntoncesSeDevuelvenOrdenadosPorNombre() {
+	}
+
+
+	@Test
+	public void DadoQueExisteUnaFerreteriaSeDevuelveUnaListaOrdenadaPorDescripcion() throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
 		Ferreteria ferreteria = new Ferreteria();   
-		Maquina maquina = new Maquina("taladro", "laburo", 200.0, 2.0, 15.5);
+		Maquina maquina = new Maquina("taladro", "laburo", 200.0, 2.0, 1000);
 		maquina.resetearContador();  //no sirve tener este metodo en la clase padre 'Producto', serviria si estuviese en 'Ferreteria', si alguien sabe como hacerlo
 		ferreteria.registrarProducto(maquina);
 		Pintura pintura = new Pintura("balde", "pinturillo", 200.0, "naranja", 5.0);
@@ -65,6 +88,16 @@ public class test {
 		//Si tienen una mejor forma de hacer algun metodo o alguna manera de hacerlos mas simples Q LO HAGA
 		//      -testamento de AngelDeidad(antes de quedarme sin luz, adios amigos)
 	}
-	//9- Dado que existe una ferretería, cuando se registra un producto con precio negativo, entonces se lanza una excepción.
-	//10- Dado que existe una ferretería, cuando se consulta la cantidad de productos, entonces se obtiene la cantidad correcta.
+	@Test (expected= NoSePuedeAsignarPrecioNegativoException.class)
+	public void dadoQueExisteUnaFerreteriaCuandoSeRegistraUnProductoConPrecioNegativoEntoncesSeLanzaUnaExcepcion() throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
+	Ferreteria ferreteria= new Ferreteria();
+	Maquina maquina= new Maquina("Rotopercutor","nebraska",(-12.99),1.5,800);
+	ferreteria.registrarProducto(maquina);
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaCuandoSeConsultaLaCantidadDeProductosEntoncesSeObtieneLaCantidadCorrecta() {
+
+	}
+
 }

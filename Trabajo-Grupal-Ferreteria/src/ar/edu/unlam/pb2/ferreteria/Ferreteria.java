@@ -8,26 +8,36 @@ import ar.edu.unlam.pb2.exceptions.NoExisteProductoConElIdAEliminarException;
 
 public class Ferreteria{
 
-	TreeSet<Producto> producto;
+	TreeSet<Producto> productos;
 	
 	public Ferreteria() {
-		this.producto = new TreeSet<>();
+		this.productos = new TreeSet<>();
 	}
 
-	public TreeSet<Producto> getProducto() {
-		return producto;
+	public TreeSet<Producto> getProductos() {
+		return productos;
 	}
 
-	public void setProducto(TreeSet<Producto> producto) {
-		this.producto = producto;
+	public void setProducto(TreeSet<Producto> productos) {
+		this.productos = productos;
 	}
 	
-	public Boolean registrarProducto(Producto producto) {
-		return this.producto.add(producto);
+	public Boolean registrarProducto(Producto producto) throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
+		if(producto.getPrecio()<0) {
+			throw new NoSePuedeAsignarPrecioNegativoException("No se puede poner precio negativo");
+			}
+		for (Producto productoo : productos) {
+		if(productoo.getId().equals(producto.getId())) {
+		throw new NoSePuedeRegistrarCodigosDuplicadosException("No Se Puede Registrar Codigos Duplicados");
+		}
+		
+	}
+	return productos.add(producto);
+			
 	}
 	
 	public Producto buscarProductoPorIdEnLaLista(String id) throws NoExisteProductoConElIdABuscarException {
-		for (Producto p : producto) {
+		for (Producto p : productos) {
 			if (p.getId().equals(id)) {
 			   return p;
 			}
@@ -37,7 +47,7 @@ public class Ferreteria{
 	
 	public Boolean borrarProductoPorIdEnLaLista(String id) throws NoExisteProductoConElIdAEliminarException {
 		Producto productoAEliminar = null;
-		for (Producto p : producto) {
+		for (Producto p : productos) {
 			if (p.getId().equals(id)) {
 				productoAEliminar = p;
 				break;
@@ -46,12 +56,12 @@ public class Ferreteria{
 		if (productoAEliminar == null) {
 			throw new NoExisteProductoConElIdAEliminarException("No se encontro el producto buscado para eliminar");
 		}
-		return this.producto.remove(productoAEliminar);
+		return this.productos.remove(productoAEliminar);
 	}
 	
 	public TreeSet<Producto> listaOrdenadaPorDescripcion() {
 		TreeSet<Producto> productosOrdenados = new TreeSet<>(Comparator.comparing(Producto::getDescripcion));   //relacionado con 'Comparator'
-		productosOrdenados.addAll(this.producto);
+		productosOrdenados.addAll(this.productos);
 		return productosOrdenados;
 	}
 	
