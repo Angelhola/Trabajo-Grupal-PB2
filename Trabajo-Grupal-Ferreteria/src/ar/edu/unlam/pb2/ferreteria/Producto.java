@@ -1,9 +1,27 @@
 package ar.edu.unlam.pb2.ferreteria;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 public class Producto implements Comparable<Producto>, Comparator{
 	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Producto other = (Producto) obj;
+		return Objects.equals(id, other.id);
+	}
+
 	private static Integer contadorId = 1;
 	private String id;
 	private String descripcion;

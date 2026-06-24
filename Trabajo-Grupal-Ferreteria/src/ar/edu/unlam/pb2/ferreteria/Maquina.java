@@ -3,9 +3,9 @@ package ar.edu.unlam.pb2.ferreteria;
 public class Maquina extends Producto {
 	
 	private Double pesoKg;
-	private Double watts;
+	private Integer watts;
 	
-	public Maquina(String descripcion, String marca, Double precio, Double pesoKg, Double watts) {
+	public Maquina(String descripcion, String marca, Double precio, Double pesoKg, Integer watts) {
 		super(descripcion, marca, precio, "M");
 		this.pesoKg = pesoKg;
 		this.watts = watts;
@@ -19,11 +19,11 @@ public class Maquina extends Producto {
 		this.pesoKg = pesoKg;
 	}
 
-	public Double getWatts() {
+	public Integer getWatts() {
 		return watts;
 	}
 
-	public void setWatts(Double watts) {
+	public void setWatts(Integer watts) {
 		this.watts = watts;
 	}
 	
