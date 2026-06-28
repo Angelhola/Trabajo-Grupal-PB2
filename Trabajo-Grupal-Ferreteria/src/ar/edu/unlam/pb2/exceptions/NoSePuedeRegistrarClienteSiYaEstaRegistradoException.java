@@ -1,4 +1,4 @@
-package ar.edu.unlam.pb2.ferreteria;
+package ar.edu.unlam.pb2.exceptions;
 
 public class NoSePuedeRegistrarClienteSiYaEstaRegistradoException extends Exception {
 

@@ -1,6 +1,8 @@
 package ar.edu.unlam.pb2.ferreteria;
 
-public class Herramienta extends Producto {
+import ar.edu.unlam.pb2.interfaces.Devolvible;
+
+public class Herramienta extends Producto implements Devolvible{
 	
 	private String tipoDeUso;
 	private String material;
@@ -30,6 +32,12 @@ public class Herramienta extends Producto {
 	
 	public void resetearContador() {
 		setContadorId(1);
+	}
+
+	@Override
+	public Boolean esDevolbible() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 

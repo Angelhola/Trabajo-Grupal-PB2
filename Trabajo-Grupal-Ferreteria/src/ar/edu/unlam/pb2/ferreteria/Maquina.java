@@ -1,6 +1,8 @@
 package ar.edu.unlam.pb2.ferreteria;
 
-public class Maquina extends Producto {
+import ar.edu.unlam.pb2.interfaces.Devolvible;
+
+public class Maquina extends Producto implements Devolvible{
 	
 	private Double pesoKg;
 	private Integer watts;
@@ -29,6 +31,12 @@ public class Maquina extends Producto {
 	
 	public void resetearContador() {
 		setContadorId(1);
+	}
+
+	@Override
+	public Boolean esDevolbible() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	
