@@ -1,6 +1,7 @@
 package ar.edu.unlam.pb2.ferreteria;
 
 import java.util.Comparator;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import ar.edu.unlam.pb2.exceptions.NoExisteProductoConElIdABuscarException;
@@ -9,6 +10,8 @@ import ar.edu.unlam.pb2.exceptions.NoExisteProductoConElIdAEliminarException;
 public class Ferreteria{
 
 	TreeSet<Producto> productos;
+	TreeMap<Integer,Cliente>clientes;
+	TreeMap<Integer,Venta>ventas;
 	
 	public Ferreteria() {
 		this.productos = new TreeSet<>();
