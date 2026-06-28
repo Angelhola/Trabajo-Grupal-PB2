@@ -127,14 +127,12 @@ public class Ferreteria {
 		venta.getProductoVendido().setStock(venta.getProductoVendido().getStock() - 1);
 	}
 
-	public Cliente buscarClientePorID(Cliente cliente) throws NoSeEncontroClienteBuscadoException {
+	public Cliente buscarClientePorID(Integer id) throws NoSeEncontroClienteBuscadoException {
 		// TODO Auto-generated method stub
-		if (!clientes.containsKey(cliente.getId())) {
-			throw new NoSeEncontroClienteBuscadoException("No se encontro cliente buscado");
+		if(!clientes.containsKey(id)) {
+		throw new NoSeEncontroClienteBuscadoException("No se encontro cliente buscado");
 		}
-		return clientes.get(cliente.getId());
-
-	}
+		return clientes.get(id);}
 
 	public void procesarDevolucion(Venta venta) throws NoSePuedeDevolverProductoException {
 		Producto p = venta.getProductoVendido();

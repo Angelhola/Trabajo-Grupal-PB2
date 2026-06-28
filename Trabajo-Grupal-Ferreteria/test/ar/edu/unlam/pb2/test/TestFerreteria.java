@@ -135,15 +135,14 @@ public class TestFerreteria {
 	}
 
 	@Test
-	public void dadoQueExisteUnaFerreteriaCuandoBuscoClientePorIdLoObtengo()
-			throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException, NoSeEncontroClienteBuscadoException {
-		Ferreteria ferreteria = new Ferreteria();
-		Cliente cliente = new Cliente("Geronimo", "Benavides", 12136789);
-		ferreteria.agregarCliente(cliente);
-		Cliente cliente2 = new Cliente("Ariana", "Mbappe", 12136900);
-		ferreteria.agregarCliente(cliente2);
-		Cliente clienteBuscado = ferreteria.buscarClientePorID(cliente2);
-		assertEquals(cliente2.getId(), clienteBuscado.getId(), 0.01);
+	public void dadoQueExisteUnaFerreteriaCuandoBuscoClientePorIdLoObtengo() throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException, NoSeEncontroClienteBuscadoException {
+Ferreteria ferreteria = new Ferreteria();
+Cliente cliente= new Cliente("Geronimo","Benavides",12136789);
+ferreteria.agregarCliente(cliente);
+Cliente cliente2= new Cliente("Ariana","Mbappe",12136900);
+ferreteria.agregarCliente(cliente2);
+Cliente IdclienteBuscado=ferreteria.buscarClientePorID(cliente2.getId());
+assertEquals(cliente2.getId(),IdclienteBuscado.getId(),0.01);
 	}
 
 	@Test
@@ -214,7 +213,7 @@ public class TestFerreteria {
 			throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException, NoSeEncontroClienteBuscadoException {
 		Ferreteria ferreteria = new Ferreteria();
 		Cliente cliente = new Cliente("Juan", "Perez", 12345678);
-		ferreteria.buscarClientePorID(cliente);
+		ferreteria.buscarClientePorID(cliente.getId());
 	}
 
 	@Test
