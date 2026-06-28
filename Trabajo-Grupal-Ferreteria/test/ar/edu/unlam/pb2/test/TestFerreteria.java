@@ -9,10 +9,12 @@ import ar.edu.unlam.pb2.ferreteria.Cliente;
 import ar.edu.unlam.pb2.ferreteria.Ferreteria;
 import ar.edu.unlam.pb2.ferreteria.Herramienta;
 import ar.edu.unlam.pb2.ferreteria.Maquina;
+import ar.edu.unlam.pb2.ferreteria.NoSePuedeAgregarVentaconIdYaExistentException;
 import ar.edu.unlam.pb2.ferreteria.NoSePuedeAsignarPrecioNegativoException;
 import ar.edu.unlam.pb2.ferreteria.NoSePuedeRegistrarClienteSiYaEstaRegistradoException;
 import ar.edu.unlam.pb2.ferreteria.NoSePuedeRegistrarCodigosDuplicadosException;
 import ar.edu.unlam.pb2.ferreteria.Pintura;
+import ar.edu.unlam.pb2.ferreteria.Venta;
 
 public class TestFerreteria {
 
@@ -138,7 +140,14 @@ assertEquals(1,ferreteria.getClientes().size(),0.01);
 	}
 
 	@Test
-	public void dadoQueExisteUnaFerreteriaSeRegistraUnaVentaCorrectamente() {
+	public void dadoQueExisteUnaFerreteriaSeRegistraUnaVentaCorrectamente() throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException, NoSePuedeAgregarVentaconIdYaExistentException, NoSePuedeRegistrarClienteSiYaEstaRegistradoException {
+		Ferreteria ferreteria= new Ferreteria();
+		Herramienta herramienta = new Herramienta("taladro", "black and decker", 12.00, "domestico", "acero");
+		ferreteria.registrarProducto(herramienta);
+		Cliente cliente=new Cliente("Leonardo","Mechi",46789807);
+		ferreteria.agregarCliente(cliente);
+		Venta venta= new Venta(cliente,herramienta);
+		ferreteria.agregarVenta(venta);
 	}
 
 	@Test
@@ -158,11 +167,6 @@ assertEquals(1,ferreteria.getClientes().size(),0.01);
 
 	@Test
 	public void dadoQueExisteUnaFerreteriaCuandoSeRegistraVentaaConElMismoCodigoEntoncesSeLanzaUnaExcepcion() {
-
-	}
-
-	@Test
-	public void dadoQueExisteUnaFerreteriaCuandoSeRegistraUnProductoNuloEntoncesSeLanzaUnaExcepcion() {
 
 	}
 

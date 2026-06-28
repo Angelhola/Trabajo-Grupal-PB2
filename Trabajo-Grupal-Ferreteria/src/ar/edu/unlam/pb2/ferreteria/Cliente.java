@@ -5,7 +5,7 @@ private Integer id;
 private String nombre;
 private String apellido;
 private Integer dni;
-private Integer contador=1;
+private static Integer contador=1;
 public Cliente( String nombre, String apellido, Integer dni) {
 	this.id = contador++;
 	this.nombre = nombre;

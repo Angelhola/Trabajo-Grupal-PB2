@@ -105,4 +105,12 @@ public class Ferreteria {
 		clientes.put(cliente.getId(), cliente);
 	}
 
+	public void agregarVenta(Venta venta) throws NoSePuedeAgregarVentaconIdYaExistentException {
+		// TODO Auto-generated method stub
+		if(ventas.containsKey(venta.getId())) {
+		throw new NoSePuedeAgregarVentaconIdYaExistentException("No se puede agregar venta con id ya existente");
+		}
+		ventas.put(venta.getId(), venta);
+	}
+
 }
