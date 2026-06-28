@@ -113,4 +113,13 @@ public class Ferreteria {
 		ventas.put(venta.getId(), venta);
 	}
 
+	public Cliente buscarClientePorID(Cliente cliente) throws NoSeEncontroClienteBuscadoException {
+		// TODO Auto-generated method stub
+		if(!clientes.containsKey(cliente.getId())) {
+		throw new NoSeEncontroClienteBuscadoException("No se encontro cliente buscado");
+		}
+		return clientes.get(cliente.getId());
+		
+	}
+
 }

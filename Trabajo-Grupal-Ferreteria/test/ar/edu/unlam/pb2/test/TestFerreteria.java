@@ -9,6 +9,7 @@ import ar.edu.unlam.pb2.ferreteria.Cliente;
 import ar.edu.unlam.pb2.ferreteria.Ferreteria;
 import ar.edu.unlam.pb2.ferreteria.Herramienta;
 import ar.edu.unlam.pb2.ferreteria.Maquina;
+import ar.edu.unlam.pb2.ferreteria.NoSeEncontroClienteBuscadoException;
 import ar.edu.unlam.pb2.ferreteria.NoSePuedeAgregarVentaconIdYaExistentException;
 import ar.edu.unlam.pb2.ferreteria.NoSePuedeAsignarPrecioNegativoException;
 import ar.edu.unlam.pb2.ferreteria.NoSePuedeRegistrarClienteSiYaEstaRegistradoException;
@@ -125,13 +126,19 @@ assertEquals(1,ferreteria.getClientes().size(),0.01);
 		Ferreteria ferreteria= new Ferreteria();
 		Cliente cliente= new Cliente("victor","fernandez",12136789);
 		ferreteria.agregarCliente(cliente);
-		Cliente cliente2= new Cliente("enzo","fernandez",12136789);
+		Cliente cliente2= new Cliente("Mirtha","Hernandez",12136789);
 		ferreteria.agregarCliente(cliente2);
 	}
 
 	@Test
-	public void dadoQueExisteUnaFerreteriaCuandoBuscoClientePorIdLoObtengo() {
-
+	public void dadoQueExisteUnaFerreteriaCuandoBuscoClientePorIdLoObtengo() throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException, NoSeEncontroClienteBuscadoException {
+Ferreteria ferreteria = new Ferreteria();
+Cliente cliente= new Cliente("Geronimo","Benavides",12136789);
+ferreteria.agregarCliente(cliente);
+Cliente cliente2= new Cliente("Ariana","Mbappe",12136900);
+ferreteria.agregarCliente(cliente2);
+Cliente clienteBuscado=ferreteria.buscarClientePorID(cliente2);
+assertEquals(2, clienteBuscado.getId(),0.01);
 	}
 
 	@Test
