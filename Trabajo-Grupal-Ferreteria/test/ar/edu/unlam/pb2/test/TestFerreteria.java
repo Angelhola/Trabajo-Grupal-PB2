@@ -5,10 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import ar.edu.unlam.pb2.exceptions.NoExisteProductoConElIdABuscarException;
 import ar.edu.unlam.pb2.exceptions.NoExisteProductoConElIdAEliminarException;
+import ar.edu.unlam.pb2.ferreteria.Cliente;
 import ar.edu.unlam.pb2.ferreteria.Ferreteria;
 import ar.edu.unlam.pb2.ferreteria.Herramienta;
 import ar.edu.unlam.pb2.ferreteria.Maquina;
 import ar.edu.unlam.pb2.ferreteria.NoSePuedeAsignarPrecioNegativoException;
+import ar.edu.unlam.pb2.ferreteria.NoSePuedeRegistrarClienteSiYaEstaRegistradoException;
 import ar.edu.unlam.pb2.ferreteria.NoSePuedeRegistrarCodigosDuplicadosException;
 import ar.edu.unlam.pb2.ferreteria.Pintura;
 
@@ -106,17 +108,23 @@ public class TestFerreteria {
 
 	@Test
 	public void dadoQueExisteUnaFerreteriaCuandoSeConsultaLaCantidadDeProductosEntoncesSeObtieneLaCantidadCorrecta() {
-
 	}
 
 	@Test
-	public void dadoQueExisteUnaFerreteriaCuandoAgregoUnCLienteSeRegistraCorrectamente() {
-
+	public void dadoQueExisteUnaFerreteriaCuandoAgregoUnCLienteSeRegistraCorrectamente() throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException {
+Ferreteria ferreteria= new Ferreteria();
+Cliente cliente= new Cliente("victor","fernandez",12136789);
+ferreteria.agregarCliente(cliente);
+assertEquals(1,ferreteria.getClientes().size(),0.01);
 	}
 
-	@Test
-	public void dadoQueExisteUnaFerreteriaNoSePermitaAgregarClienteConElMismoId() {
-
+	@Test (expected=NoSePuedeRegistrarClienteSiYaEstaRegistradoException.class)
+	public void dadoQueExisteUnaFerreteriaNoSePermitaAgregarClienteConElMismoDni() throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException {
+		Ferreteria ferreteria= new Ferreteria();
+		Cliente cliente= new Cliente("victor","fernandez",12136789);
+		ferreteria.agregarCliente(cliente);
+		Cliente cliente2= new Cliente("enzo","fernandez",12136789);
+		ferreteria.agregarCliente(cliente2);
 	}
 
 	@Test
@@ -125,7 +133,7 @@ public class TestFerreteria {
 	}
 
 	@Test
-	void dadoQueExisteUnaFerreteriaCuandoBuscoUnClienteInexistenteEntoncesSeLanzaUnaExcepcion() {
+	public void dadoQueExisteUnaFerreteriaCuandoBuscoUnClienteInexistenteEntoncesSeLanzaUnaExcepcion() {
 
 	}
 

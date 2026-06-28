@@ -1,22 +1,22 @@
 package ar.edu.unlam.pb2.ferreteria;
 
 public class Cliente {
-private Integer id_cliente;
+private Integer id;
 private String nombre;
 private String apellido;
 private Integer dni;
 private Integer contador=1;
 public Cliente( String nombre, String apellido, Integer dni) {
-	this.id_cliente = contador++;
+	this.id = contador++;
 	this.nombre = nombre;
 	this.apellido = apellido;
 	this.dni = dni;
 }
-public Integer getId_cliente() {
-	return id_cliente;
+public Integer getId() {
+	return id;
 }
-public void setId_cliente(Integer id_cliente) {
-	this.id_cliente = id_cliente;
+public void setId(Integer id) {
+	this.id = id;
 }
 public String getNombre() {
 	return nombre;
