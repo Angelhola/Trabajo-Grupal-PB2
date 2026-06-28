@@ -1,0 +1,175 @@
+package ar.edu.unlam.pb2.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import ar.edu.unlam.pb2.exceptions.NoExisteProductoConElIdABuscarException;
+import ar.edu.unlam.pb2.exceptions.NoExisteProductoConElIdAEliminarException;
+import ar.edu.unlam.pb2.ferreteria.Ferreteria;
+import ar.edu.unlam.pb2.ferreteria.Herramienta;
+import ar.edu.unlam.pb2.ferreteria.Maquina;
+import ar.edu.unlam.pb2.ferreteria.NoSePuedeAsignarPrecioNegativoException;
+import ar.edu.unlam.pb2.ferreteria.NoSePuedeRegistrarCodigosDuplicadosException;
+import ar.edu.unlam.pb2.ferreteria.Pintura;
+
+public class TestFerreteria {
+
+	@Test
+	public void DadoQueExisteUnaFerreteriaYSeAgregaUnProductoSeRegistraCorrectamente()
+			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
+		Ferreteria ferreteria = new Ferreteria();
+		Pintura pintura = new Pintura("pintura", "lokepinte", 200.0, "rojo", 10.0);
+		ferreteria.registrarProducto(pintura);
+
+		assertEquals(ferreteria.getProductos().size(), 1);
+	}
+
+	@Test(expected = NoSePuedeRegistrarCodigosDuplicadosException.class)
+	public void dadoQueExisteUnaFerreteriaCuandoSeAgregaUnProductoConCodigoRepetidoEntoncesSeLanzaUnaExcepcion()
+			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
+		Ferreteria ferreteria = new Ferreteria();
+		Herramienta herramienta = new Herramienta("martillo", "bremen", 12.00, "domestico", "hierro");
+		String id = herramienta.getId();
+		ferreteria.registrarProducto(herramienta);
+		Herramienta herramienta2 = new Herramienta("martillo", "stanley", 12.00, "domestico", "hierro");
+		herramienta2.setId(id);
+		ferreteria.registrarProducto(herramienta2);
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaCuandoSeBuscaUnProductoExistenteEntoncesSeObtieneElProducto()
+			throws NoSePuedeRegistrarCodigosDuplicadosException, NoExisteProductoConElIdABuscarException,
+			NoSePuedeAsignarPrecioNegativoException {
+		Ferreteria ferreteria = new Ferreteria();
+		Herramienta cajaDeTubos = new Herramienta("caja de tubos", "stanley", 18.00, "profesional", "bronce");
+		ferreteria.registrarProducto(cajaDeTubos);
+		ferreteria.buscarProductoPorIdEnLaLista(cajaDeTubos.getId());
+
+	}
+
+	@Test(expected = NoExisteProductoConElIdABuscarException.class)
+	public void DadoQueExisteUnaFerreteriaYBuscaUnProductoInexistenteEntoncesSeLanzaExcepcion()
+			throws NoExisteProductoConElIdABuscarException, NoSePuedeRegistrarCodigosDuplicadosException,
+			NoSePuedeAsignarPrecioNegativoException {
+		Ferreteria ferreteria = new Ferreteria();
+		Pintura pintura = new Pintura("deBalde", "lokepinte", 200.0, "azul", 10.0);
+		pintura.resetearContador();
+		ferreteria.registrarProducto(pintura);
+		ferreteria.buscarProductoPorIdEnLaLista("P2");
+	}
+
+	@Test
+	public void DadoQueExisteUnaFerreteriaYSeEliminaUnProductoDeLaLista()
+			throws NoExisteProductoConElIdABuscarException, NoExisteProductoConElIdAEliminarException {
+//			Ferreteria ferreteria = new Ferreteria();
+//			Herramienta herramienta = new Herramienta("pico", "pick", 1000.0, "manual", "hierro");
+//			ferreteria.registrarProducto(herramienta);
+//			
+//			ferreteria.buscarProductoPorIdEnLaLista("H3");  //verifica que el producto fue agregado a la lista y existe en la misma
+//			
+//			ferreteria.borrarProductoPorIdEnLaLista("H3");  //borra el producto
+//			
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaCuandoSeObtienenLosProductosEntoncesSeDevuelvenOrdenadosPorNombre() {
+	}
+
+	@Test
+	public void DadoQueExisteUnaFerreteriaSeDevuelveUnaListaOrdenadaPorDescripcion()
+			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
+		Ferreteria ferreteria = new Ferreteria();
+		Maquina maquina = new Maquina("taladro", "laburo", 200.0, 2.0, 1000);
+		maquina.resetearContador(); // no sirve tener este metodo en la clase padre 'Producto', serviria si
+									// estuviese en 'Ferreteria', si alguien sabe como hacerlo
+		ferreteria.registrarProducto(maquina);
+		Pintura pintura = new Pintura("balde", "pinturillo", 200.0, "naranja", 5.0);
+		ferreteria.registrarProducto(pintura);
+		Herramienta herramienta = new Herramienta("hacha", "hachaxd", 199.0, "manual", "madera");
+		ferreteria.registrarProducto(herramienta);
+
+		ferreteria.listaOrdenadaPorDescripcion();
+		assertTrue(ferreteria.listaOrdenadaPorDescripcion().first().getDescripcion() == "balde");
+		assertTrue(ferreteria.listaOrdenadaPorDescripcion().last().getDescripcion() == "taladro");
+		// Si tienen una mejor forma de hacer algun metodo o alguna manera de hacerlos
+		// mas simples Q LO HAGA
+		// -testamento de AngelDeidad(antes de quedarme sin luz, adios amigos)
+	}
+
+	@Test(expected = NoSePuedeAsignarPrecioNegativoException.class)
+	public void dadoQueExisteUnaFerreteriaCuandoSeRegistraUnProductoConPrecioNegativoEntoncesSeLanzaUnaExcepcion()
+			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
+		Ferreteria ferreteria = new Ferreteria();
+		Maquina maquina = new Maquina("Rotopercutor", "nebraska", (-12.99), 1.5, 800);
+		ferreteria.registrarProducto(maquina);
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaCuandoSeConsultaLaCantidadDeProductosEntoncesSeObtieneLaCantidadCorrecta() {
+
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaCuandoAgregoUnCLienteSeRegistraCorrectamente() {
+
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaNoSePermitaAgregarClienteConElMismoId() {
+
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaCuandoBuscoClientePorIdLoObtengo() {
+
+	}
+
+	@Test
+	void dadoQueExisteUnaFerreteriaCuandoBuscoUnClienteInexistenteEntoncesSeLanzaUnaExcepcion() {
+
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaSeRegistraUnaVentaCorrectamente() {
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaSeObtienenClientesOrdenadosPorId() {
+
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaSeObtienenVentasOrdenadas() {
+
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaNoSePermiteVentaSiElClienteNoEstaRegistrado() {
+
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaCuandoSeRegistraVentaaConElMismoCodigoEntoncesSeLanzaUnaExcepcion() {
+
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaCuandoSeRegistraUnProductoNuloEntoncesSeLanzaUnaExcepcion() {
+
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaCuandoSeVendeUnProductoSinStockEntoncesSeLanzaUnaExcepcion() {
+
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaCuandoSeRegistraUnaVentaSinProductosEntoncesSeLanzaUnaExcepcion() {
+
+	}
+
+	@Test
+	public void dadoQueExisteUnaFerreteriaCuandoSeEliminaUnClienteInexistenteEntoncesSeLanzaUnaExcepcion() {
+
+	}
+}
