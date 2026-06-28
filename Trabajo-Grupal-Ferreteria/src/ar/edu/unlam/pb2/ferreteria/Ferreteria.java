@@ -105,10 +105,18 @@ public class Ferreteria {
 		clientes.put(cliente.getId(), cliente);
 	}
 
-	public void agregarVenta(Venta venta) throws NoSePuedeAgregarVentaconIdYaExistentException {
+	public void agregarVenta(Venta venta) throws NoSePuedeAgregarVentaconIdYaExistentException,
+	NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException,
+	NoSePuedeAgregarVentaSinProductoException {
 		// TODO Auto-generated method stub
 		if(ventas.containsKey(venta.getId())) {
 		throw new NoSePuedeAgregarVentaconIdYaExistentException("No se puede agregar venta con id ya existente");
+		}
+		if (!clientes.containsKey(venta.getCliente().getId())) {
+	        throw new NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException("El cliente no está registrado");
+	    }
+		if (venta.getProductoVendido() == null) {
+		    throw new NoSePuedeAgregarVentaSinProductoException("No se puede agregar venta sin producto");
 		}
 		ventas.put(venta.getId(), venta);
 	}
@@ -120,6 +128,14 @@ public class Ferreteria {
 		}
 		return clientes.get(cliente.getId());
 		
+	}
+	
+	public TreeMap<Integer, Cliente> getClientesOrdenadosPorDni() {
+	    TreeMap<Integer, Cliente> porDni = new TreeMap<>();
+	    for (Cliente c : clientes.values()) {
+	        porDni.put(c.getDni(), c);
+	    }
+	    return porDni;
 	}
 
 }
