@@ -6,6 +6,14 @@ import java.util.TreeSet;
 
 import ar.edu.unlam.pb2.exceptions.NoExisteProductoConElIdABuscarException;
 import ar.edu.unlam.pb2.exceptions.NoExisteProductoConElIdAEliminarException;
+import ar.edu.unlam.pb2.exceptions.NoSeEncontroClienteBuscadoException;
+import ar.edu.unlam.pb2.exceptions.NoSePuedeAgregarVentaconIdYaExistentException;
+import ar.edu.unlam.pb2.exceptions.NoSePuedeAsignarPrecioNegativoException;
+import ar.edu.unlam.pb2.exceptions.NoSePuedeDevolverProductoException;
+import ar.edu.unlam.pb2.exceptions.NoSePuedeRegistrarClienteSiYaEstaRegistradoException;
+import ar.edu.unlam.pb2.exceptions.NoSePuedeRegistrarCodigosDuplicadosException;
+import ar.edu.unlam.pb2.exceptions.NoSePuedenVenderProductosSinStockException;
+import ar.edu.unlam.pb2.interfaces.Devolvible;
 
 public class Ferreteria {
 
@@ -15,8 +23,8 @@ public class Ferreteria {
 
 	public Ferreteria() {
 		this.productos = new TreeSet<>();
-		this.clientes=new TreeMap<>();
-		this.ventas=new TreeMap<>();
+		this.clientes = new TreeMap<>();
+		this.ventas = new TreeMap<>();
 	}
 
 	public TreeSet<Producto> getProductos() {
@@ -43,8 +51,8 @@ public class Ferreteria {
 		this.ventas = ventas;
 	}
 
-	//metodos
-	
+	// metodos
+
 	public Boolean registrarProducto(Producto producto)
 			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
 		if (producto.getPrecio() < 0) {
@@ -98,28 +106,43 @@ public class Ferreteria {
 					"No se puede registrar cliente si ya esta registrado");
 		}
 		for (Cliente clienteExistente : clientes.values()) {
-	        if (clienteExistente.getDni().equals(cliente.getDni())) {
-	            throw new NoSePuedeRegistrarClienteSiYaEstaRegistradoException(
-	                    "No se puede registrar cliente: El DNI ya está registrado.");
-	        }}
+			if (clienteExistente.getDni().equals(cliente.getDni())) {
+				throw new NoSePuedeRegistrarClienteSiYaEstaRegistradoException(
+						"No se puede registrar cliente: El DNI ya está registrado.");
+			}
+		}
 		clientes.put(cliente.getId(), cliente);
 	}
 
-	public void agregarVenta(Venta venta) throws NoSePuedeAgregarVentaconIdYaExistentException {
+	public void agregarVenta(Venta venta)
+			throws NoSePuedeAgregarVentaconIdYaExistentException, NoSePuedenVenderProductosSinStockException {
 		// TODO Auto-generated method stub
-		if(ventas.containsKey(venta.getId())) {
-		throw new NoSePuedeAgregarVentaconIdYaExistentException("No se puede agregar venta con id ya existente");
+		if (ventas.containsKey(venta.getId())) {
+			throw new NoSePuedeAgregarVentaconIdYaExistentException("No se puede agregar venta con id ya existente");
+		}
+		if (!venta.getProductoVendido().estaEnStock()) {
+			throw new NoSePuedenVenderProductosSinStockException("No hay stock");
 		}
 		ventas.put(venta.getId(), venta);
+		venta.getProductoVendido().setStock(venta.getProductoVendido().getStock() - 1);
 	}
 
 	public Cliente buscarClientePorID(Cliente cliente) throws NoSeEncontroClienteBuscadoException {
 		// TODO Auto-generated method stub
-		if(!clientes.containsKey(cliente.getId())) {
-		throw new NoSeEncontroClienteBuscadoException("No se encontro cliente buscado");
+		if (!clientes.containsKey(cliente.getId())) {
+			throw new NoSeEncontroClienteBuscadoException("No se encontro cliente buscado");
 		}
 		return clientes.get(cliente.getId());
-		
+
+	}
+
+	public void procesarDevolucion(Venta venta) throws NoSePuedeDevolverProductoException {
+		Producto p = venta.getProductoVendido();
+		if (!(p instanceof Devolvible)) {
+			throw new NoSePuedeDevolverProductoException("El producto no es devolvible");
+		}
+		p.setStock(p.getStock() + 1);
+		ventas.remove(venta.getId());
 	}
 
 }
