@@ -137,8 +137,8 @@ Cliente cliente= new Cliente("Geronimo","Benavides",12136789);
 ferreteria.agregarCliente(cliente);
 Cliente cliente2= new Cliente("Ariana","Mbappe",12136900);
 ferreteria.agregarCliente(cliente2);
-Cliente clienteBuscado=ferreteria.buscarClientePorID(cliente2);
-assertEquals(2, clienteBuscado.getId(),0.01);
+Cliente IdclienteBuscado=ferreteria.buscarClientePorID(cliente2.getId());
+assertEquals(cliente2.getId(),IdclienteBuscado.getId(),0.01);
 	}
 
 	@Test
