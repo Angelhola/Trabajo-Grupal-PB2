@@ -3,7 +3,7 @@ package ar.edu.unlam.pb2.ferreteria;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class Producto implements Comparable<Producto>, Comparator{
+public abstract class Producto implements Comparable<Producto>, Comparator{
 	
 	@Override
 	public int hashCode() {
@@ -28,6 +28,7 @@ public class Producto implements Comparable<Producto>, Comparator{
 	private String marca;
 	private Double precio;
 	private String prefijo;
+	private Integer stock = 10;
 	
 	public Producto(String descripcion, String marca, Double precio, String prefijo) {
 		            //P          //1
@@ -36,6 +37,7 @@ public class Producto implements Comparable<Producto>, Comparator{
 		this.marca = marca;
 		this.precio = precio;
 		this.prefijo = prefijo;
+	
 	}
 
 	public static Integer getContadorId() {
@@ -84,6 +86,19 @@ public class Producto implements Comparable<Producto>, Comparator{
 
 	public void setPrefijo(String prefijo) {
 		this.prefijo = prefijo;
+	}
+	
+
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+	
+	public Boolean estaEnStock() {
+		return stock > 0;
 	}
 
 	@Override
