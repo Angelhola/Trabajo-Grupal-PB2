@@ -153,12 +153,10 @@ public class Ferreteria {
 		ventas.remove(venta.getId());
 	}
 
-	public TreeMap<Integer, Cliente> getClientesOrdenadosPorDni() {
-		TreeMap<Integer, Cliente> porDni = new TreeMap<>();
-		for (Cliente c : clientes.values()) {
-			porDni.put(c.getDni(), c);
+		public TreeSet<Cliente> getClientesOrdenadosPorDni() {
+		    TreeSet<Cliente> ordenadosPorDni = new TreeSet<>();
+		    ordenadosPorDni.addAll(this.clientes.values());
+		    return ordenadosPorDni;
 		}
-		return porDni;
-	}
 
 }

@@ -67,7 +67,7 @@ public class TestFerreteria {
 		Pintura pintura = new Pintura("deBalde", "lokepinte", 200.0, "azul", 10.0);
 		pintura.resetearContador();
 		ferreteria.registrarProducto(pintura);
-		ferreteria.buscarProductoPorIdEnLaLista("120bb");
+		ferreteria.buscarProductoPorIdEnLaLista("p22");
 	}
 
 	@Test
@@ -175,7 +175,7 @@ public class TestFerreteria {
 		ferreteria.agregarCliente(cliente1);
 		ferreteria.agregarCliente(cliente2);
 		ferreteria.agregarCliente(cliente3);
-		List<Cliente> ordenados = new ArrayList<>(ferreteria.getClientesOrdenadosPorDni().values());
+		List<Cliente> ordenados = new ArrayList<>(ferreteria.getClientesOrdenadosPorDni());
 		assertEquals(cliente1.getDni(), ordenados.get(0).getDni());
 		assertEquals(cliente2.getDni(), ordenados.get(1).getDni());
 		assertEquals(cliente3.getDni(), ordenados.get(2).getDni());
