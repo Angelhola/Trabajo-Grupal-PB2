@@ -46,11 +46,11 @@ public class Cliente implements Comparable<Cliente> {
 		this.dni = dni;
 	}
 
-	public Integer getContador() {
+	public static Integer getContador() {
 		return contador;
 	}
 
-	public void setContador(Integer contador) {
+	public static void setContador(Integer contador) {
 		Cliente.contador = contador;
 	}
 

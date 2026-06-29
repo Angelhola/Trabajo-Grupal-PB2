@@ -2,7 +2,7 @@ package ar.edu.unlam.pb2.ferreteria;
 
 import java.util.Objects;
 
-public abstract class Producto implements Comparable<Producto> {
+public abstract class Producto implements Comparable<Producto>,Vendible {
 
 	@Override
 	public int hashCode() {
