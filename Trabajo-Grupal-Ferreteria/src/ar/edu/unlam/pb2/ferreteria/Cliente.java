@@ -1,6 +1,6 @@
 package ar.edu.unlam.pb2.ferreteria;
 
-public class Cliente {
+public class Cliente implements Comparable<Cliente> {
 private Integer id;
 private String nombre;
 private String apellido;
@@ -41,6 +41,11 @@ public Integer getContador() {
 }
 public void setContador(Integer contador) {
 	this.contador = contador;
+}
+@Override
+public int compareTo(Cliente otro) {
+	// TODO Auto-generated method stub
+	return this.getId().compareTo(otro.getId());
 }
 
 }
