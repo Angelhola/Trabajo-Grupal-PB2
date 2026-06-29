@@ -67,7 +67,7 @@ public class TestFerreteria {
 		Pintura pintura = new Pintura("deBalde", "lokepinte", 200.0, "azul", 10.0);
 		pintura.resetearContador();
 		ferreteria.registrarProducto(pintura);
-		ferreteria.buscarProductoPorIdEnLaLista("P2");
+		ferreteria.buscarProductoPorIdEnLaLista(pintura.getId());
 	}
 
 	@Test
@@ -77,9 +77,9 @@ public class TestFerreteria {
 			Herramienta herramienta = new Herramienta("pico", "pick", 1000.0, "manual", "hierro");
 			ferreteria.registrarProducto(herramienta);
 	
-			ferreteria.buscarProductoPorIdEnLaLista("H8");  //verifica que el producto fue agregado a la lista y existe en la misma
+			ferreteria.buscarProductoPorIdEnLaLista(herramienta.getId());  //verifica que el producto fue agregado a la lista y existe en la misma
 			
-			ferreteria.borrarProductoPorIdEnLaLista("H8");  //borra el producto
+			ferreteria.borrarProductoPorIdEnLaLista(herramienta.getId());  //borra el producto
 			
 	}
 
@@ -114,7 +114,7 @@ public class TestFerreteria {
 		Ferreteria ferreteria = new Ferreteria();
 		Cliente cliente = new Cliente("victor", "fernandez", 12136789);
 		ferreteria.agregarCliente(cliente);
-		assertEquals(1, ferreteria.getClientes().size(), 0.01);
+		assertEquals(1, ferreteria.getClientes().size());
 	}
 
 	@Test(expected = NoSePuedeRegistrarClienteSiYaEstaRegistradoException.class)    //9
@@ -135,7 +135,7 @@ ferreteria.agregarCliente(cliente);
 Cliente cliente2= new Cliente("Ariana","Mbappe",12136900);
 ferreteria.agregarCliente(cliente2);
 Cliente IdclienteBuscado=ferreteria.buscarClientePorID(cliente2.getId());
-assertEquals(cliente2.getId(),IdclienteBuscado.getId(),0.01);
+assertEquals(cliente2.getId(),IdclienteBuscado.getId());
 	}
 
 	@Test(expected = NoSeEncontroClienteBuscadoException.class)  //11
@@ -165,7 +165,7 @@ assertEquals(cliente2.getId(),IdclienteBuscado.getId(),0.01);
 		Ferreteria ferreteria = new Ferreteria();
 		Cliente cliente1 = new Cliente("Ana", "Lopez", 11121211);
 	    Cliente cliente2 = new Cliente("Bruno", "Garcia", 22524272);
-	    Cliente cliente3 = new Cliente("Carlos", "Perez", 313635433);
+	    Cliente cliente3 = new Cliente("Carlos", "Perez", 31363543);
 	    
 	    ferreteria.agregarCliente(cliente1);
 	    ferreteria.agregarCliente(cliente2);

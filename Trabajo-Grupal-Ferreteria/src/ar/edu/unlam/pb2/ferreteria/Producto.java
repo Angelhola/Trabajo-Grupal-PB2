@@ -1,10 +1,9 @@
 package ar.edu.unlam.pb2.ferreteria;
 
-import java.util.Comparator;
 import java.util.Objects;
 
-public abstract class Producto implements Comparable<Producto>, Comparator<Producto>{
-	
+public abstract class Producto implements Comparable<Producto> {
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -29,15 +28,15 @@ public abstract class Producto implements Comparable<Producto>, Comparator<Produ
 	private Double precio;
 	private String prefijo;
 	private Integer stock = 10;
-	
+
 	public Producto(String descripcion, String marca, Double precio, String prefijo) {
-		            //P          //1
+		// P //1
 		this.id = prefijo + (contadorId++);
 		this.descripcion = descripcion;
 		this.marca = marca;
 		this.precio = precio;
 		this.prefijo = prefijo;
-	
+
 	}
 
 	public static Integer getContadorId() {
@@ -63,7 +62,7 @@ public abstract class Producto implements Comparable<Producto>, Comparator<Produ
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
 	public String getMarca() {
 		return marca;
 	}
@@ -87,7 +86,6 @@ public abstract class Producto implements Comparable<Producto>, Comparator<Produ
 	public void setPrefijo(String prefijo) {
 		this.prefijo = prefijo;
 	}
-	
 
 	public Integer getStock() {
 		return stock;
@@ -96,7 +94,7 @@ public abstract class Producto implements Comparable<Producto>, Comparator<Produ
 	public void setStock(Integer stock) {
 		this.stock = stock;
 	}
-	
+
 	public Boolean estaEnStock() {
 		return stock > 0;
 	}
@@ -105,18 +103,5 @@ public abstract class Producto implements Comparable<Producto>, Comparator<Produ
 	public int compareTo(Producto o) {
 		return this.id.compareTo(o.getId());
 	}
-
-	@Override
-	public int compare(Producto o1, Producto o2) {       //compara descripciones y las ordena
-		Producto p1 = (Producto) o1;
-		Producto p2 = (Producto) o2;
-		p1.getDescripcion().compareTo(p2.getDescripcion());
-		return 0;
-	}
-	
-	
-	
-	
-	
 
 }
