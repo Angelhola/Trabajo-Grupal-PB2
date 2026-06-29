@@ -144,7 +144,7 @@ assertEquals(cliente2.getId(),IdclienteBuscado.getId(),0.01);
 		ferreteria.buscarClientePorID(9);
 	}
 
-	
+	@Test
 	public void dadoQueExisteUnaFerreteriaSeRegistraUnaVentaCorrectamente()  //12
 			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException,
 			NoSePuedeAgregarVentaconIdYaExistentException, NoSePuedeRegistrarClienteSiYaEstaRegistradoException,
