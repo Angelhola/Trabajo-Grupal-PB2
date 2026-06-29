@@ -7,6 +7,8 @@ import java.util.TreeSet;
 import ar.edu.unlam.pb2.exceptions.NoExisteProductoConElIdABuscarException;
 import ar.edu.unlam.pb2.exceptions.NoExisteProductoConElIdAEliminarException;
 import ar.edu.unlam.pb2.exceptions.NoSeEncontroClienteBuscadoException;
+import ar.edu.unlam.pb2.exceptions.NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException;
+import ar.edu.unlam.pb2.exceptions.NoSePuedeAgregarVentaSinProductoException;
 import ar.edu.unlam.pb2.exceptions.NoSePuedeAgregarVentaconIdYaExistentException;
 import ar.edu.unlam.pb2.exceptions.NoSePuedeAsignarPrecioNegativoException;
 import ar.edu.unlam.pb2.exceptions.NoSePuedeDevolverProductoException;
