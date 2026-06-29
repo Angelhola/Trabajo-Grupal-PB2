@@ -3,7 +3,7 @@ package ar.edu.unlam.pb2.ferreteria;
 import java.util.Comparator;
 import java.util.Objects;
 
-public abstract class Producto implements Comparable<Producto>, Comparator{
+public abstract class Producto implements Comparable<Producto>, Comparator<Producto>{
 	
 	@Override
 	public int hashCode() {
@@ -107,7 +107,7 @@ public abstract class Producto implements Comparable<Producto>, Comparator{
 	}
 
 	@Override
-	public int compare(Object o1, Object o2) {       //compara descripciones y las ordena
+	public int compare(Producto o1, Producto o2) {       //compara descripciones y las ordena
 		Producto p1 = (Producto) o1;
 		Producto p2 = (Producto) o2;
 		p1.getDescripcion().compareTo(p2.getDescripcion());
