@@ -40,6 +40,12 @@ public class Herramienta extends Producto implements Devolvible{
 		return true;
 	}
 
+	@Override
+	public Double calcularPrecioFinal() {
+		// TODO Auto-generated method stub
+		return this.getPrecio();
+	}
+
 
 	
 	

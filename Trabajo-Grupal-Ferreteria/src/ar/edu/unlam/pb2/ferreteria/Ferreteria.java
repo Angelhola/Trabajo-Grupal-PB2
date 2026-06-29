@@ -94,9 +94,8 @@ public class Ferreteria {
 	}
 
 	public TreeSet<Producto> listaOrdenadaPorDescripcion() {
-		TreeSet<Producto> productosOrdenados = new TreeSet<>(Comparator.comparing(Producto::getDescripcion)); // relacionado
-																												// con
-																												// 'Comparator'
+		TreeSet<Producto> productosOrdenados = new TreeSet<>(Comparator.comparing(Producto::getDescripcion));
+
 		productosOrdenados.addAll(this.productos);
 		return productosOrdenados;
 	}
@@ -116,23 +115,22 @@ public class Ferreteria {
 		clientes.put(cliente.getId(), cliente);
 	}
 
-
 	public void agregarVenta(Venta venta) throws NoSePuedeAgregarVentaconIdYaExistentException,
-	NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException,
-	NoSePuedeAgregarVentaSinProductoException, NoSePuedenVenderProductosSinStockException {
+			NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException,
+			NoSePuedenVenderProductosSinStockException {
 
 		// TODO Auto-generated method stub
 		if (ventas.containsKey(venta.getId())) {
-		    throw new NoSePuedeAgregarVentaconIdYaExistentException("No se puede agregar venta con id ya existente");
+			throw new NoSePuedeAgregarVentaconIdYaExistentException("No se puede agregar venta con id ya existente");
 		}
 		if (venta.getProductoVendido() == null) {
-		    throw new NoSePuedeAgregarVentaSinProductoException("No se puede agregar venta sin producto");
+			throw new NoSePuedeAgregarVentaSinProductoException("No se puede agregar venta sin producto");
 		}
 		if (!venta.getProductoVendido().estaEnStock()) {
-		    throw new NoSePuedenVenderProductosSinStockException ("No hay stock");
+			throw new NoSePuedenVenderProductosSinStockException("No hay stock");
 		}
 		if (!clientes.containsKey(venta.getCliente().getId())) {
-		    throw new NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException("El cliente no está registrado");
+			throw new NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException("El cliente no está registrado");
 		}
 		ventas.put(venta.getId(), venta);
 		venta.getProductoVendido().setStock(venta.getProductoVendido().getStock() - 1);
@@ -140,10 +138,11 @@ public class Ferreteria {
 
 	public Cliente buscarClientePorID(Integer id) throws NoSeEncontroClienteBuscadoException {
 		// TODO Auto-generated method stub
-		if(!clientes.containsKey(id)) {
-		throw new NoSeEncontroClienteBuscadoException("No se encontro cliente buscado");
+		if (!clientes.containsKey(id)) {
+			throw new NoSeEncontroClienteBuscadoException("No se encontro cliente buscado");
 		}
-		return clientes.get(id);}
+		return clientes.get(id);
+	}
 
 	public void procesarDevolucion(Venta venta) throws NoSePuedeDevolverProductoException {
 		Producto p = venta.getProductoVendido();
@@ -153,13 +152,13 @@ public class Ferreteria {
 		p.setStock(p.getStock() + 1);
 		ventas.remove(venta.getId());
 	}
-	
+
 	public TreeMap<Integer, Cliente> getClientesOrdenadosPorDni() {
-	    TreeMap<Integer, Cliente> porDni = new TreeMap<>();
-	    for (Cliente c : clientes.values()) {
-	        porDni.put(c.getDni(), c);
-	    }
-	    return porDni;
+		TreeMap<Integer, Cliente> porDni = new TreeMap<>();
+		for (Cliente c : clientes.values()) {
+			porDni.put(c.getDni(), c);
+		}
+		return porDni;
 	}
 
 }

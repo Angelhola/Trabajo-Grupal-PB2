@@ -27,7 +27,7 @@ import ar.edu.unlam.pb2.ferreteria.Venta;
 public class TestFerreteria {
 
 	@Test
-	public void DadoQueExisteUnaFerreteriaYSeAgregaUnProductoSeRegistraCorrectamente()  //1
+	public void DadoQueExisteUnaFerreteriaYSeAgregaUnProductoSeRegistraCorrectamente() // 1
 			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
 		Ferreteria ferreteria = new Ferreteria();
 		Pintura pintura = new Pintura("pintura", "lokepinte", 200.0, "rojo", 10.0);
@@ -36,7 +36,7 @@ public class TestFerreteria {
 		assertEquals(ferreteria.getProductos().size(), 1);
 	}
 
-	@Test(expected = NoSePuedeRegistrarCodigosDuplicadosException.class)  //2
+	@Test(expected = NoSePuedeRegistrarCodigosDuplicadosException.class) // 2
 	public void dadoQueExisteUnaFerreteriaCuandoSeAgregaUnProductoConCodigoRepetidoEntoncesSeLanzaUnaExcepcion()
 			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
 		Ferreteria ferreteria = new Ferreteria();
@@ -48,7 +48,7 @@ public class TestFerreteria {
 		ferreteria.registrarProducto(herramienta2);
 	}
 
-	@Test  //3
+	@Test // 3
 	public void dadoQueExisteUnaFerreteriaCuandoSeBuscaUnProductoExistenteEntoncesSeObtieneElProducto()
 			throws NoSePuedeRegistrarCodigosDuplicadosException, NoExisteProductoConElIdABuscarException,
 			NoSePuedeAsignarPrecioNegativoException {
@@ -59,7 +59,7 @@ public class TestFerreteria {
 
 	}
 
-	@Test(expected = NoExisteProductoConElIdABuscarException.class)  //4
+	@Test(expected = NoExisteProductoConElIdABuscarException.class) // 4
 	public void DadoQueExisteUnaFerreteriaYBuscaUnProductoInexistenteEntoncesSeLanzaExcepcion()
 			throws NoExisteProductoConElIdABuscarException, NoSePuedeRegistrarCodigosDuplicadosException,
 			NoSePuedeAsignarPrecioNegativoException {
@@ -67,24 +67,26 @@ public class TestFerreteria {
 		Pintura pintura = new Pintura("deBalde", "lokepinte", 200.0, "azul", 10.0);
 		pintura.resetearContador();
 		ferreteria.registrarProducto(pintura);
-		ferreteria.buscarProductoPorIdEnLaLista("P2");
+		ferreteria.buscarProductoPorIdEnLaLista("120bb");
 	}
 
 	@Test
-	public void DadoQueExisteUnaFerreteriaYSeEliminaUnProductoDeLaLista()   //5
-			throws NoExisteProductoConElIdABuscarException, NoExisteProductoConElIdAEliminarException, NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
-			Ferreteria ferreteria = new Ferreteria();
-			Herramienta herramienta = new Herramienta("pico", "pick", 1000.0, "manual", "hierro");
-			ferreteria.registrarProducto(herramienta);
-	
-			ferreteria.buscarProductoPorIdEnLaLista("H8");  //verifica que el producto fue agregado a la lista y existe en la misma
-			
-			ferreteria.borrarProductoPorIdEnLaLista("H8");  //borra el producto
-			
+	public void DadoQueExisteUnaFerreteriaYSeEliminaUnProductoDeLaLista() // 5
+			throws NoExisteProductoConElIdABuscarException, NoExisteProductoConElIdAEliminarException,
+			NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
+		Ferreteria ferreteria = new Ferreteria();
+		Herramienta herramienta = new Herramienta("pico", "pick", 1000.0, "manual", "hierro");
+		ferreteria.registrarProducto(herramienta);
+
+		ferreteria.buscarProductoPorIdEnLaLista(herramienta.getId()); // verifica que el producto fue agregado a la
+																		// lista y existe en la misma
+
+		ferreteria.borrarProductoPorIdEnLaLista(herramienta.getId()); // borra el producto
+
 	}
 
 	@Test
-	public void DadoQueExisteUnaFerreteriaSeDevuelveUnaListaOrdenadaPorDescripcion()  //6
+	public void DadoQueExisteUnaFerreteriaSeDevuelveUnaListaOrdenadaPorDescripcion() // 6
 			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
 		Ferreteria ferreteria = new Ferreteria();
 		Maquina maquina = new Maquina("taladro", "laburo", 200.0, 2.0, 1000);
@@ -100,7 +102,7 @@ public class TestFerreteria {
 		assertTrue(ferreteria.listaOrdenadaPorDescripcion().last().getDescripcion().equals("taladro"));
 	}
 
-	@Test(expected = NoSePuedeAsignarPrecioNegativoException.class)   //7
+	@Test(expected = NoSePuedeAsignarPrecioNegativoException.class) // 7
 	public void dadoQueExisteUnaFerreteriaCuandoSeRegistraUnProductoConPrecioNegativoEntoncesSeLanzaUnaExcepcion()
 			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
 		Ferreteria ferreteria = new Ferreteria();
@@ -109,15 +111,15 @@ public class TestFerreteria {
 	}
 
 	@Test
-	public void dadoQueExisteUnaFerreteriaCuandoAgregoUnCLienteSeRegistraCorrectamente()   //8
+	public void dadoQueExisteUnaFerreteriaCuandoAgregoUnCLienteSeRegistraCorrectamente() // 8
 			throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException {
 		Ferreteria ferreteria = new Ferreteria();
 		Cliente cliente = new Cliente("victor", "fernandez", 12136789);
 		ferreteria.agregarCliente(cliente);
-		assertEquals(1, ferreteria.getClientes().size(), 0.01);
+		assertEquals(1, ferreteria.getClientes().size());
 	}
 
-	@Test(expected = NoSePuedeRegistrarClienteSiYaEstaRegistradoException.class)    //9
+	@Test(expected = NoSePuedeRegistrarClienteSiYaEstaRegistradoException.class) // 9
 	public void dadoQueExisteUnaFerreteriaNoSePermitaAgregarClienteConElMismoDni()
 			throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException {
 		Ferreteria ferreteria = new Ferreteria();
@@ -127,28 +129,31 @@ public class TestFerreteria {
 		ferreteria.agregarCliente(cliente2);
 	}
 
-	@Test      //10
-	public void dadoQueExisteUnaFerreteriaCuandoBuscoClientePorIdLoObtengo() throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException, NoSeEncontroClienteBuscadoException {
-Ferreteria ferreteria = new Ferreteria();
-Cliente cliente= new Cliente("Geronimo","Benavides",12136789);
-ferreteria.agregarCliente(cliente);
-Cliente cliente2= new Cliente("Ariana","Mbappe",12136900);
-ferreteria.agregarCliente(cliente2);
-Cliente IdclienteBuscado=ferreteria.buscarClientePorID(cliente2.getId());
-assertEquals(cliente2.getId(),IdclienteBuscado.getId(),0.01);
+	@Test // 10
+	public void dadoQueExisteUnaFerreteriaCuandoBuscoClientePorIdLoObtengo()
+			throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException, NoSeEncontroClienteBuscadoException {
+		Ferreteria ferreteria = new Ferreteria();
+		Cliente cliente = new Cliente("Geronimo", "Benavides", 12136789);
+		ferreteria.agregarCliente(cliente);
+		Cliente cliente2 = new Cliente("Ariana", "Mbappe", 12136900);
+		ferreteria.agregarCliente(cliente2);
+		Cliente IdclienteBuscado = ferreteria.buscarClientePorID(cliente2.getId());
+		assertEquals(cliente2.getId(), IdclienteBuscado.getId());
 	}
 
-	@Test(expected = NoSeEncontroClienteBuscadoException.class)  //11
-	public void dadoQueExisteUnaFerreteriaCuandoBuscoUnClienteInexistenteEntoncesSeLanzaUnaExcepcion() throws NoSeEncontroClienteBuscadoException {
+	@Test(expected = NoSeEncontroClienteBuscadoException.class) // 11
+	public void dadoQueExisteUnaFerreteriaCuandoBuscoUnClienteInexistenteEntoncesSeLanzaUnaExcepcion()
+			throws NoSeEncontroClienteBuscadoException {
 		Ferreteria ferreteria = new Ferreteria();
 		ferreteria.buscarClientePorID(9);
 	}
 
 	@Test
-	public void dadoQueExisteUnaFerreteriaSeRegistraUnaVentaCorrectamente()  //12
+	public void dadoQueExisteUnaFerreteriaSeRegistraUnaVentaCorrectamente() // 12
 			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException,
 			NoSePuedeAgregarVentaconIdYaExistentException, NoSePuedeRegistrarClienteSiYaEstaRegistradoException,
-			NoSePuedenVenderProductosSinStockException, NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException {
+			NoSePuedenVenderProductosSinStockException, NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException,
+			NoSePuedeAgregarVentaSinProductoException {
 		Ferreteria ferreteria = new Ferreteria();
 
 		Herramienta herramienta = new Herramienta("taladro", "black and decker", 12.00, "domestico", "acero");
@@ -159,94 +164,94 @@ assertEquals(cliente2.getId(),IdclienteBuscado.getId(),0.01);
 		ferreteria.agregarVenta(venta);
 	}
 
-	@Test    //13
+	@Test // 13
 	public void dadoQueExisteUnaFerreteriaSeObtienenClientesOrdenadosPorDNI()
-			throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException  {
+			throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException {
 		Ferreteria ferreteria = new Ferreteria();
 		Cliente cliente1 = new Cliente("Ana", "Lopez", 11121211);
-	    Cliente cliente2 = new Cliente("Bruno", "Garcia", 22524272);
-	    Cliente cliente3 = new Cliente("Carlos", "Perez", 313635433);
-	    
-	    ferreteria.agregarCliente(cliente1);
-	    ferreteria.agregarCliente(cliente2);
-	    ferreteria.agregarCliente(cliente3);
-	    List<Cliente> ordenados = new ArrayList<>(ferreteria.getClientesOrdenadosPorDni().values());
-	    assertEquals(cliente1.getDni(), ordenados.get(0).getDni()); 
-	    assertEquals(cliente2.getDni(), ordenados.get(1).getDni()); 
-	    assertEquals(cliente3.getDni(), ordenados.get(2).getDni()); 
+		Cliente cliente2 = new Cliente("Bruno", "Garcia", 22524272);
+		Cliente cliente3 = new Cliente("Carlos", "Perez", 31363543);
+
+		ferreteria.agregarCliente(cliente1);
+		ferreteria.agregarCliente(cliente2);
+		ferreteria.agregarCliente(cliente3);
+		List<Cliente> ordenados = new ArrayList<>(ferreteria.getClientesOrdenadosPorDni().values());
+		assertEquals(cliente1.getDni(), ordenados.get(0).getDni());
+		assertEquals(cliente2.getDni(), ordenados.get(1).getDni());
+		assertEquals(cliente3.getDni(), ordenados.get(2).getDni());
 
 	}
 
-	@Test       //14
-	public void dadoQueExisteUnaFerreteriaSeObtienenVentasOrdenadas() 
-			throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException,
-			NoSePuedeAgregarVentaconIdYaExistentException,
-			NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, 
-			NoSePuedeAgregarVentaSinProductoException, NoSePuedenVenderProductosSinStockException {
+	@Test // 14
+	public void dadoQueExisteUnaFerreteriaSeObtienenVentasOrdenadas()
+			throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException, NoSePuedeAgregarVentaconIdYaExistentException,
+			NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException,
+			NoSePuedenVenderProductosSinStockException {
 		Ferreteria ferreteria = new Ferreteria();
-	    Cliente cliente = new Cliente("Ana", "Lopez", 11111111);
-	    ferreteria.agregarCliente(cliente);
-	    Herramienta producto1 = new Herramienta("Martillo", "Stanley", 1500.0, "Manual", "Acero");
-	    Herramienta producto2 = new Herramienta("Llave", "Bahco", 800.0, "Manual", "Hierro");
-	    Herramienta producto3 = new Herramienta("Destornillador", "Philips", 300.0, "Manual", "Acero");
-	    
-	    Venta venta = new Venta(3, cliente, producto1);
-	    Venta venta2 = new Venta(1, cliente, producto2);
-	    Venta venta3 = new Venta(2, cliente, producto3);
-	    
-	    ferreteria.agregarVenta(venta);
-	    ferreteria.agregarVenta(venta2);
-	    ferreteria.agregarVenta(venta3);
-	    
-	    List<Venta> ventas = new ArrayList<>(ferreteria.getVentas().values());
-	    assertEquals(venta2.getId(), ventas.get(0).getId()); 
-	    assertEquals(venta3.getId(), ventas.get(1).getId()); 
-	    assertEquals(venta.getId(), ventas.get(2).getId()); 
-
-	}
-
-	@Test (expected = NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException.class)     //15
-	public void dadoQueExisteUnaFerreteriaNoSePermiteVentaSiElClienteNoEstaRegistrado() 
-			throws NoSePuedeAgregarVentaconIdYaExistentException, 
-    NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException, NoSePuedenVenderProductosSinStockException {
-		Ferreteria ferreteria = new Ferreteria();
-		Cliente cliente = new Cliente("Ana", "Lopez", 11111111); 
+		Cliente cliente = new Cliente("Ana", "Lopez", 11111111);
+		ferreteria.agregarCliente(cliente);
 		Herramienta producto1 = new Herramienta("Martillo", "Stanley", 1500.0, "Manual", "Acero");
-	    
-	    Venta venta1 = new Venta(1, cliente, producto1);
-	    
-	    ferreteria.agregarVenta(venta1);
-		
+		Herramienta producto2 = new Herramienta("Llave", "Bahco", 800.0, "Manual", "Hierro");
+		Herramienta producto3 = new Herramienta("Destornillador", "Philips", 300.0, "Manual", "Acero");
+
+		Venta venta = new Venta(3, cliente, producto1);
+		Venta venta2 = new Venta(1, cliente, producto2);
+		Venta venta3 = new Venta(2, cliente, producto3);
+
+		ferreteria.agregarVenta(venta);
+		ferreteria.agregarVenta(venta2);
+		ferreteria.agregarVenta(venta3);
+
+		List<Venta> ventas = new ArrayList<>(ferreteria.getVentas().values());
+		assertEquals(venta2.getId(), ventas.get(0).getId());
+		assertEquals(venta3.getId(), ventas.get(1).getId());
+		assertEquals(venta.getId(), ventas.get(2).getId());
 
 	}
 
-	@Test (expected = NoSePuedeAgregarVentaconIdYaExistentException.class)      //16
-	public void dadoQueExisteUnaFerreteriaCuandoSeRegistraVentaaConElMismoCodigoEntoncesSeLanzaUnaExcepcion()  
+	@Test(expected = NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException.class) // 15
+	public void dadoQueExisteUnaFerreteriaNoSePermiteVentaSiElClienteNoEstaRegistrado()
 			throws NoSePuedeAgregarVentaconIdYaExistentException,
-    NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException,
-    NoSePuedeRegistrarClienteSiYaEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException, 
-    NoSePuedenVenderProductosSinStockException{
-		
-		 Ferreteria ferreteria = new Ferreteria();
-	     Cliente cliente = new Cliente("Ana", "Lopez", 11111111);
-		 ferreteria.agregarCliente(cliente);
-		    
-		 Herramienta producto1 = new Herramienta("Martillo", "Stanley", 1500.0, "Manual", "Acero");
-		 Herramienta producto2 = new Herramienta("Martillo", "Stanley", 1500.0, "Manual", "Acero");
+			NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException,
+			NoSePuedenVenderProductosSinStockException {
+		Ferreteria ferreteria = new Ferreteria();
+		Cliente cliente = new Cliente("Ana", "Lopez", 11111111);
+		Herramienta producto1 = new Herramienta("Martillo", "Stanley", 1500.0, "Manual", "Acero");
 
-		 Venta v1 = new Venta(1, cliente, producto1);
-		 Venta v2 = new Venta(1, cliente, producto2);
-		 
-		 ferreteria.agregarVenta(v1);
-		 ferreteria.agregarVenta(v2);
-		
+		Venta venta1 = new Venta(1, cliente, producto1);
+
+		ferreteria.agregarVenta(venta1);
+
 	}
 
-	@Test(expected = NoSePuedenVenderProductosSinStockException.class)    //17
+	@Test(expected = NoSePuedeAgregarVentaconIdYaExistentException.class) // 16
+	public void dadoQueExisteUnaFerreteriaCuandoSeRegistraVentaaConElMismoCodigoEntoncesSeLanzaUnaExcepcion()
+			throws NoSePuedeAgregarVentaconIdYaExistentException,
+			NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException,
+			NoSePuedeRegistrarClienteSiYaEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException,
+			NoSePuedenVenderProductosSinStockException {
+
+		Ferreteria ferreteria = new Ferreteria();
+		Cliente cliente = new Cliente("Ana", "Lopez", 11111111);
+		ferreteria.agregarCliente(cliente);
+
+		Herramienta producto1 = new Herramienta("Martillo", "Stanley", 1500.0, "Manual", "Acero");
+		Herramienta producto2 = new Herramienta("Martillo", "Stanley", 1500.0, "Manual", "Acero");
+
+		Venta v1 = new Venta(1, cliente, producto1);
+		Venta v2 = new Venta(1, cliente, producto2);
+
+		ferreteria.agregarVenta(v1);
+		ferreteria.agregarVenta(v2);
+
+	}
+
+	@Test(expected = NoSePuedenVenderProductosSinStockException.class) // 17
 	public void dadoQueExisteUnaFerreteriaCuandoSeVendeUnProductoSinStockEntoncesSeLanzaUnaExcepcion()
 			throws NoSePuedenVenderProductosSinStockException, NoSePuedeAgregarVentaconIdYaExistentException,
 			NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException,
-			NoSePuedeRegistrarClienteSiYaEstaRegistradoException, NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException {
+			NoSePuedeRegistrarClienteSiYaEstaRegistradoException,
+			NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException {
 
 		Ferreteria ferreteria = new Ferreteria();
 		Herramienta herramienta = new Herramienta("martillo", "stanley", 12.00, "domestico", "hierro");
@@ -261,22 +266,22 @@ assertEquals(cliente2.getId(),IdclienteBuscado.getId(),0.01);
 		ferreteria.agregarVenta(venta);
 	}
 
-	@Test (expected = NoSePuedeAgregarVentaSinProductoException.class)     //18
-	public void dadoQueExisteUnaFerreteriaCuandoSeRegistraUnaVentaSinProductosEntoncesSeLanzaUnaExcepcion() 
+	@Test(expected = NoSePuedeAgregarVentaSinProductoException.class) // 18
+	public void dadoQueExisteUnaFerreteriaCuandoSeRegistraUnaVentaSinProductosEntoncesSeLanzaUnaExcepcion()
 			throws NoSePuedeAgregarVentaconIdYaExistentException,
-    NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException,
-    NoSePuedeRegistrarClienteSiYaEstaRegistradoException,
-    NoSePuedeAgregarVentaSinProductoException, NoSePuedenVenderProductosSinStockException {
-		
-		 Ferreteria ferreteria = new Ferreteria();
-		  Cliente cliente = new Cliente("Ana", "Lopez", 11224411);
-		 ferreteria.agregarCliente(cliente);
-		 Venta venta1 = new Venta(1, cliente, null);
-		 ferreteria.agregarVenta(venta1);
+			NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException,
+			NoSePuedeRegistrarClienteSiYaEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException,
+			NoSePuedenVenderProductosSinStockException {
+
+		Ferreteria ferreteria = new Ferreteria();
+		Cliente cliente = new Cliente("Ana", "Lopez", 11224411);
+		ferreteria.agregarCliente(cliente);
+		Venta venta1 = new Venta(1, cliente, null);
+		ferreteria.agregarVenta(venta1);
 
 	}
 
-	@Test(expected = NoSeEncontroClienteBuscadoException.class)   //19
+	@Test(expected = NoSeEncontroClienteBuscadoException.class) // 19
 	public void dadoQueExisteUnaFerreteriaCuandoBuscoUnClienteInexistenteEntoncesSeLanzaUnaExcepcion1()
 			throws NoSePuedeRegistrarClienteSiYaEstaRegistradoException, NoSeEncontroClienteBuscadoException {
 		Ferreteria ferreteria = new Ferreteria();
@@ -285,10 +290,11 @@ assertEquals(cliente2.getId(),IdclienteBuscado.getId(),0.01);
 	}
 
 	@Test
-	public void dadoQueExisteUnaFerreteriaCuandoSeDevuelveUnProductoEntoncesElStockAumenta()       //20
+	public void dadoQueExisteUnaFerreteriaCuandoSeDevuelveUnProductoEntoncesElStockAumenta() // 20
 			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException,
 			NoSePuedeAgregarVentaconIdYaExistentException, NoSePuedeRegistrarClienteSiYaEstaRegistradoException,
-			NoSePuedenVenderProductosSinStockException, NoSePuedeDevolverProductoException, NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException {
+			NoSePuedenVenderProductosSinStockException, NoSePuedeDevolverProductoException,
+			NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException {
 
 		Ferreteria ferreteria = new Ferreteria();
 		Herramienta herramienta = new Herramienta("martillo", "stanley", 12.00, "domestico", "hierro");
@@ -305,11 +311,12 @@ assertEquals(cliente2.getId(),IdclienteBuscado.getId(),0.01);
 		assertEquals(stockAntes + 1, (int) herramienta.getStock());
 	}
 
-	@Test(expected = NoSePuedeDevolverProductoException.class)     //21
+	@Test(expected = NoSePuedeDevolverProductoException.class) // 21
 	public void dadoQueExisteUnaFerreteriaCuandoSeDevuelveUnaPinturaEntoncesSeLanzaExcepcion()
 			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException,
 			NoSePuedeAgregarVentaconIdYaExistentException, NoSePuedeRegistrarClienteSiYaEstaRegistradoException,
-			NoSePuedenVenderProductosSinStockException, NoSePuedeDevolverProductoException, NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException {
+			NoSePuedenVenderProductosSinStockException, NoSePuedeDevolverProductoException,
+			NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException {
 
 		Ferreteria ferreteria = new Ferreteria();
 		Pintura pintura = new Pintura("pintura", "lokepinte", 200.0, "rojo", 10.0);
@@ -323,11 +330,32 @@ assertEquals(cliente2.getId(),IdclienteBuscado.getId(),0.01);
 		ferreteria.procesarDevolucion(venta);
 	}
 
-	@Test
-	public void dadoQueExisteUnaFerreteriaCuandoSeDevuelveUnProductoLaVentaSeElimina()          //23
+	@Test // 22
+	public void dadoQueExisteUnaFerreteriaCuandoSeAgregaUnaPinturaMayorADiezLitrosSeAplicaDescuento()
+			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
+		Ferreteria ferreteria = new Ferreteria();
+		Pintura pintura = new Pintura("membrana", "venier", 350.0, "gris", 25.0);
+		ferreteria.registrarProducto(pintura);
+		assertEquals(315.0, pintura.calcularPrecioFinal(), 0.01);
+
+	}
+
+	@Test // 24
+	public void dadoQueExisteUnaFerreteriaCuandoSeAgregaUnaMaquinaSeLeSumaElIva()
+			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException {
+		Ferreteria ferreteria = new Ferreteria();
+		Maquina maquina = new Maquina("Amoladora", "Lusqtoff", 250.0, 1.0, 800);
+		ferreteria.registrarProducto(maquina);
+		assertEquals(302.5, maquina.calcularPrecioFinal(), 0.01);
+
+	}
+
+	@Test // 23
+	public void dadoQueExisteUnaFerreteriaCuandoSeDevuelveUnProductoLaVentaSeElimina()
 			throws NoSePuedeRegistrarCodigosDuplicadosException, NoSePuedeAsignarPrecioNegativoException,
 			NoSePuedeAgregarVentaconIdYaExistentException, NoSePuedeRegistrarClienteSiYaEstaRegistradoException,
-			NoSePuedenVenderProductosSinStockException, NoSePuedeDevolverProductoException, NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException {
+			NoSePuedenVenderProductosSinStockException, NoSePuedeDevolverProductoException,
+			NoSePuedeAgregarVentaSiElClienteNoEstaRegistradoException, NoSePuedeAgregarVentaSinProductoException {
 		Ferreteria ferreteria = new Ferreteria();
 		Herramienta herramienta = new Herramienta("martillo", "stanley", 12.00, "domestico", "hierro");
 

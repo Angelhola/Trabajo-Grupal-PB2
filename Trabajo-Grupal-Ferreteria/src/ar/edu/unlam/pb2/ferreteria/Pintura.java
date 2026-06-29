@@ -30,6 +30,17 @@ public class Pintura extends Producto {
 	public void resetearContador() {
 		setContadorId(1);
 	}
+
+	@Override
+	public Double calcularPrecioFinal() {
+		// TODO Auto-generated method stub
+		Double precioFinal=this.getPrecio();
+		Double descuentoPorLitros=0.10;
+		if(this.getLitros()>10.0) {
+		precioFinal=this.getPrecio()-(this.getPrecio()*descuentoPorLitros);
+		}
+		return precioFinal;
+	}
 	
 	
 	
